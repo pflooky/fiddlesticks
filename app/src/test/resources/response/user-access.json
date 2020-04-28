@@ -1,0 +1,24 @@
+{
+  "data": {
+    "user": "pflook",
+    "email": "pflook@company.com",
+    "access": {
+      "read": {
+        "cassandra": ["account", "audit"],
+        "elasticsearch": ["newspapers"]
+      },
+      "write": {
+        "cassandra": ["ops"]
+      },
+      "timeBased": [
+        {
+          "resource": "cassandra",
+          "subResource": "reports",
+          "accessType": "read",
+          "startDate": "10/01/2020",
+          "endDate": "12/01/2020"
+        }
+      ]
+    }
+  }
+}

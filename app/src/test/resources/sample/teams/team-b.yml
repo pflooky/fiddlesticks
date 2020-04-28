@@ -1,0 +1,6 @@
+resource: team-b
+description: Data Engineering Team
+email: dataengineeringteam@company.com
+members:
+  - abc123
+  - xyz789

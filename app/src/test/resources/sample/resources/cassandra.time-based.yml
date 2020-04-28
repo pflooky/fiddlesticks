@@ -1,0 +1,17 @@
+resource: cassandra
+roles:
+  admin:
+    - username: pflook
+      subResource: account
+      start: 10/01/2020
+      end: 11/01/2020
+  write:
+    - username: abc123
+      subResource: audit
+      start: 10/01/2020
+      end: 11/01/2020
+  read:
+    - username: xyz789
+      subResource: ops
+      start: 10/01/2020
+      end: 11/01/2020

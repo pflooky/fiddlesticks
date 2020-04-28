@@ -1,0 +1,6 @@
+resource: team-a
+description: Platform Team
+email: platformteam@company.com
+members:
+  - abc123
+  - xyz789

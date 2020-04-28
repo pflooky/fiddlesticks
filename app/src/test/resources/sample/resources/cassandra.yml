@@ -1,0 +1,16 @@
+resource: cassandra
+owners:
+  - team-c
+serviceAccounts:
+  - admin-account
+subResources:
+  account:
+    read:
+      - team-a
+    write:
+      - team-b
+  audit:
+    read:
+      - team-a
+    write:
+      - team-b
