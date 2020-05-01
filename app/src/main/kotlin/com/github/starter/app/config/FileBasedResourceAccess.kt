@@ -28,6 +28,7 @@ class FileBasedResourceAccess: ResourceAccess {
         }
     }
 
+    //TODO check if resource value is valid
     @Bean("TeamAccess")
     override fun getTeamAccessConfig(): List<EntityAccess> {
         val teamAccessFiles = File(javaClass.getResource("/sample/teams").toURI()).listFiles()
@@ -40,6 +41,7 @@ class FileBasedResourceAccess: ResourceAccess {
         }.flatten()
     }
 
+    //TODO check if resource value is valid
     @Bean("UserAccess")
     override fun getUserAccessConfig(): List<EntityAccess> {
         val userAccessFiles = File(javaClass.getResource("/sample/users").toURI()).listFiles()
