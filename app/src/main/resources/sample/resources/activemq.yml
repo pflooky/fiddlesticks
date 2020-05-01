@@ -1,0 +1,14 @@
+name: activemq-1
+type: activemq
+schema:
+  - name: queue
+    type: queue
+    objects:
+      - queue1
+      - queue2
+      - queue3
+  - name: topic
+    type: topic
+    objects:
+      - topic1
+      - topic2

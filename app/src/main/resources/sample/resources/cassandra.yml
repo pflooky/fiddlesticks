@@ -1,0 +1,12 @@
+name: cassandra-1
+type: cassandra
+schema:
+  - name: account
+    type: keyspace
+    objects:
+      - accounts
+      - account_product
+  - name: user
+    type: keyspace
+    objects:
+      - info

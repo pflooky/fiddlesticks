@@ -1,0 +1,14 @@
+{
+  "data":{
+    "access":true,
+    "user":"user1",
+    "accessLevel":"read",
+    "resource":"cassandra-1/*"
+  },
+  "metadata":{
+  },
+  "errors":[
+  ],
+  "warnings":[
+  ]
+}

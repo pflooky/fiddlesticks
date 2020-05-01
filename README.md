@@ -13,24 +13,15 @@ Kotlin ACL Service
 1. Define DevOps roster
 1. Ability to add super users/service accounts
 
----
-
-### Endpoints
-
-|Request| Path          | Response                                         | Description                                |
-|-------|---------------|--------------------------------------------------|--------------------------------------------|
-|GET|/access/user/\<user>|`app/src/test/resources/response/user-access.json`|What resources does this user have access to and their details|
-|GET|/access/user/\<user>/resource/\<resource>/subResource/\<subResource>|`app/src/test/resources/response/user-subresouce-access.json`|Does this user have access to this sub resource|
-|GET|/access/resource/\<resource>|`app/src/test/resources/response/resource-access.json`|Who has access to this resource|
-|GET|/access/resource/\<resource>/subResource/\<subResource>|`app/src/test/resources/response/subresource-access.json`|Who has access to this sub resource|
-
 
 ### Running locally
-1. Using docker, `docker-compose up`
 1. Run Application.kt
-1. https://localhost:8080/ldap/members/admin
-1. https://localhost:8080/ldap/user/admin/description
-1. `curl -k -H "Content-Type: application/json" -X POST https://localhost:8080/jwt/create -d "hello world"`
+1. [Sample response of access check](https://localhost:8080/acl/user/access?user=user1&accessLevel=read&catalog=cassandra-1)
+1. [Sample response of getting resources user has access to](https://localhost:8080/acl/user/user1/access/resources)
+1. [Sample response of checking resource details](https://localhost:8080/acl/resource/cassandra-1)
+1. [Sample response of checking who has access to a resource](https://localhost:8080/acl/resource/access?resource=cassandra-1)
+
+Sample responses can also be found in `src/test/resources/responses`
 
 ### logging
 log4j2

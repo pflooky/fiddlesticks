@@ -45,6 +45,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.projectreactor.addons:reactor-adapter:3.3.2.RELEASE")
@@ -54,9 +55,6 @@ dependencies {
     implementation("io.r2dbc:r2dbc-h2:0.8.1.RELEASE")
     implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
     implementation("io.github.skhatri:mounted-secrets-client:0.2.3")
-    implementation("org.apache.directory.api:api-all:2.0.1")
-    implementation("io.jsonwebtoken:jjwt:0.9.1")
-    implementation("javax.xml.bind:jaxb-api:2.3.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")

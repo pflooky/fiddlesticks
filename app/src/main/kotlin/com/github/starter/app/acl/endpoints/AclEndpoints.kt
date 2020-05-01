@@ -1,17 +1,21 @@
 package com.github.starter.app.acl.endpoints
 
-import com.github.starter.app.ldap.service.LdapService
+import com.github.starter.app.acl.model.EntityAccess
+import com.github.starter.app.acl.model.Resource
+import com.github.starter.app.acl.service.AclService
+import com.github.starter.app.util.ResourceUtil
 import com.github.starter.core.container.Container
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import reactor.core.publisher.Mono
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/access")
-class AclEndpoints(private val ldapService: LdapService) {
+@RequestMapping("/acl")
+class AclEndpoints(private val aclService: AclService) {
+
+    companion object {
+        private val LOGGER: Logger = LoggerFactory.getLogger(AclEndpoints::class.java)
+    }
 
     /*
     Endpoint for:
@@ -22,13 +26,49 @@ class AclEndpoints(private val ldapService: LdapService) {
     - which part of the resource? (keyspace, schema etc)
      */
 
-    @GetMapping("/members/{group}")
-    fun getMembers(@PathVariable("group") group: String): Mono<Container<List<String>>> {
-        return ldapService.checkMembers(group).map { Container(it) }
+    @GetMapping("/user/{user}/access/resources")
+    fun getUserAccess(@PathVariable("user") user: String): Container<EntityAccess> {
+        LOGGER.info("task=user.access, user=$user, message=Attempting to get user access details")
+        return Container(aclService.getUserAccess(user))
     }
 
-    @GetMapping("/user/{user}/{attribute}")
-    fun getAttribute(@PathVariable("user") user: String, @PathVariable("attribute") attribute: String): Mono<Container<String>> {
-        return ldapService.getAttribute(user, attribute).map { Container(it) }
+    @GetMapping("/user/access")
+    fun getUserResourceAccess(@RequestParam("user", required = true) user: String,
+                              @RequestParam("accessLevel", required = true) accessLevel: String,
+                              @RequestParam("catalog", required = true) catalog: String,
+                              @RequestParam("schema", required = false) schema: String?,
+                              @RequestParam("object", required = false) objectValue: String?): Container<Map<String, Any>> {
+        val resourceValue = ResourceUtil.generateResourceFormat(catalog, schema, objectValue)
+        val entityAccess = aclService.getUserAccessForResource(user, accessLevel, catalog, schema, objectValue)
+
+        LOGGER.info("task=user.resource.access, access=$entityAccess, user=$user, accessLevel=$accessLevel, resource=$resourceValue")
+        return Container(mapOf(
+                Pair("access", entityAccess),
+                Pair("user", user),
+                Pair("accessLevel", accessLevel),
+                Pair("resource", resourceValue)
+        ))
     }
+
+    @GetMapping("/resource/{resource}")
+    fun getResourceDetails(@PathVariable("resource") resource: String): Container<Resource> {
+        LOGGER.info("task=resource.details, resource=$resource, message=Attempting to get resource details")
+        return Container(aclService.getResourceDetails(resource))
+    }
+
+    @GetMapping("/resource/access")
+    fun getResourceAccess(@RequestParam("resource") resource: String): Container<Map<String, Any>> {
+        LOGGER.info("task=resource.access.details, resource=$resource, message=Attempting to get resource access details")
+        return Container(mapOf(
+                Pair("resource", resource),
+                Pair("access", aclService.getResourceAccess(resource))
+        ))
+    }
+
+    @GetMapping("/teamMembers/{team}")
+    fun getTeamMembers(@PathVariable("team") team: String): Container<Set<String>> {
+        LOGGER.info("task=team.details, team=$team, message=Attempting to get team members")
+        return Container(aclService.getTeamMembers(team))
+    }
+
 }

@@ -1,0 +1,17 @@
+- name: team-a
+  access:
+    - level: read
+      resource:
+        - "elastic-1/index-1"
+- name: team-elastic
+  access:
+    - level: write
+      resource:
+        - "elastic-1/*"
+- name: devops
+  access:
+    - level: read
+      resource:
+        - "elastic-1/*"
+        - "cassandra-1/account/info"
+        - "mysql-1/*"

@@ -1,0 +1,8 @@
+name: elastic-1
+type: elasticsearch
+schema:
+  - name: index-1
+    type: index
+    objects:
+      - index-1
+      - index-1-alias

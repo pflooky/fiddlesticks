@@ -1,0 +1,7 @@
+- name: user1
+  access:
+    - level: read
+      resource:
+        - "elastic-1/index-1"
+        - "mysql-1/ops/load"
+        - "cassandra-1/*"
